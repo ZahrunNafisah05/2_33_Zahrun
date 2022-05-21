@@ -39,11 +39,13 @@ Route::get('/gallery', function(){
     ]);
 });
 
-Route::resource('/contacts', ContactController::class);
-
+//Route::resource('/contacts', ContactController::class);
 Auth::routes();
 
 Route::group(['middleware'=>['auth']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/contacts/index', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('/contacts/edit/{$id}', [ContactController::class, 'edit'])->name('contact.edit');
+
 });
 
