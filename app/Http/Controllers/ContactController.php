@@ -42,7 +42,7 @@ class ContactController extends Controller
         $contact = Contact::create($request->all());
         $contact->save();
 
-        return redirect('contacts');
+        return redirect()->route('contacts.create');
     }
 
     /**
@@ -77,7 +77,7 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $contact = Contacts::findOrFail($id);
+        $contact = Contact::findOrFail($id);
         $contact->update($request->all());
         $contact->save();
 
@@ -93,6 +93,9 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+
+        return redirect()->route('contacts.index');
     }
 }
